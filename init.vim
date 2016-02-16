@@ -1,5 +1,5 @@
-let mapleader = " "
 let $VIMHOME=expand('<sfile>:p:h')
+
 
 function! Load(files)
   for l:file in a:files
@@ -7,34 +7,12 @@ function! Load(files)
   endfor
 endfunction
 
-let g:filesToLoad=[
-  \'plugins',
-  \'buffergator',
-  \'closetags',
-  \'ctrlp',
-  \'delimitmate',
-  \'functions',
-  \'gitgutter',
-  \'nerd',
-  \'silver-search',
-  \'ultisnips',
-  \'youcompleteme',
-  \'keymaps',
-  \'main',
-  \'statuslinehelpers',
-  \'statusline'
-\]
-
-call Load(g:filesToLoad)
-
-hi Search cterm=NONE ctermfg=white ctermbg=darkyellow
-hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
+call Load(['plugins'])
 
 autocmd! BufReadPost * call SetCursorPosition()
 autocmd! BufEnter * :syntax sync minlines=300
 autocmd! BufEnter * :let g:bufNum=bufnr('%')
 autocmd! Filetype gitcommit setlocal spell textwidth=72
-
 
 " Share clipboard
 if has('unnamedplus')
@@ -55,6 +33,9 @@ endif
 
 syntax on
 filetype plugin indent on
+
+
+let mapleader = " "
 
 set background=dark                     " Sets a dark background
 set cinoptions=:0,(s,u0,U1,g0,t0        " Some indentation options ':h cinoptions' for details
@@ -134,11 +115,31 @@ if !has('nvim')                         " This options are on by default in NeoV
   "" Fix Delete Key
   nmap [3;*~ "_x
   inoremap [3;*~ <C-O>"_x
-  autocmd! BufReadPost,BufWritePost * Neomake
-else
   autocmd! BufWritePost * Neomake
+else
+  autocmd! BufReadPost,BufWritePost * Neomake
 endif
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
+
+call Load([
+  \'buffergator',
+  \'closetags',
+  \'ctrlp',
+  \'delimitmate',
+  \'functions',
+  \'gitgutter',
+  \'nerd',
+  \'silver-search',
+  \'ultisnips',
+  \'youcompleteme',
+  \'keymaps',
+  \'main',
+  \'statuslinehelpers',
+  \'statusline'
+\])
+
+highlight! Search cterm=NONE ctermfg=white ctermbg=darkyellow
+highlight! SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
