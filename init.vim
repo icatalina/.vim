@@ -26,11 +26,6 @@ set t_Co=256
 let &t_AB="\e[48;5;%dm"
 let &t_AF="\e[38;5;%dm"
 
-if !empty($BASE16_SHELL)
-    let base16colorspace=256
-    silent! colorscheme base16-default
-endif
-
 syntax on
 filetype plugin indent on
 
@@ -62,13 +57,13 @@ set relativenumber                      " Show relative numbers
 set ruler                               " Show Cursor position all the time
 set scrolloff=7                         " Minium number of lines above and below the cursor
 set shiftround                          " Round the indent to a multiple of shiftwidth
-set shiftwidth=0                        " Columns the text is shifted with << >> (0 follows tabstop)
+set shiftwidth=2                        " Columns the text is shifted with << >> (0 follows tabstop)
 set showcmd                             " Show partial commands as they're being typed on the bar
 set showmatch                           " When a bracket is inserted, jump to the matched one for a few ms
 set showtabline=0                       " Hide Tabs on the top of the window
 set sidescrolloff=10                    " Minium number of characters left and right of the cursor
 set smartcase                           " Enables case sensitive search when an uppercase letter is used on the search string
-set softtabstop=-1                      " Columns used when Tab is hitted in insert mode (-1 follows tabstop)
+set softtabstop=2                       " Columns used when Tab is hitted in insert mode (-1 follows tabstop)
 set splitbelow                          " Open new Split below
 set splitright                          " Open new split right
 set synmaxcol=400                       " Prevent slow down on logn lines
@@ -123,6 +118,18 @@ endif
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
+if !empty($BASE16_SHELL)
+    let base16colorspace=256
+    silent! colorscheme base16-default
+else
+    silent! colorscheme peachpuff
+    highlight! Visual cterm=NONE ctermbg=238 ctermfg=NONE
+    highlight! cursorline cterm=none ctermbg=18
+endif
+
+highlight! Search cterm=NONE ctermfg=white ctermbg=darkyellow
+highlight! SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
+
 call Load([
   \'buffergator',
   \'closetags',
@@ -135,11 +142,7 @@ call Load([
   \'ultisnips',
   \'youcompleteme',
   \'keymaps',
-  \'main',
   \'statuslinehelpers',
   \'statusline'
 \])
-
-highlight! Search cterm=NONE ctermfg=white ctermbg=darkyellow
-highlight! SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 
