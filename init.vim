@@ -129,6 +129,8 @@ endif
 
 highlight! Search cterm=NONE ctermfg=white ctermbg=darkyellow
 highlight! SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
+hi cursorlinenr ctermfg=15
+
 
 call Load([
   \'buffergator',
